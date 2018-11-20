@@ -1,3 +1,4 @@
+#include <sys/types.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
@@ -54,7 +55,7 @@ char* printScaffoldInterface(scaffoldInterface* obj);
 int intlen(int num);
 
 //reading functions
-ssize_t lineReader(char** line, FILE *f);
+void lineReader(char** line, FILE *f);
 
 int	lineLocator(int* startpos, int* endpos, char* line);
 

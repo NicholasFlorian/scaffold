@@ -1,9 +1,12 @@
+#include <sys/types.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
 #include "scaffoldInterface.h"
 
+#define READ_SIZE 200
+#define UNUSED(x) (void)(x)
 
 int main(int argc, char **argv){
 
@@ -34,7 +37,6 @@ int initializeScaffoldInterface(char* url, scaffoldInterface** obj){
 	//var
 	int urllen;
 	char* 		line;
-	ssize_t 	len;
 	int 		startpos;
 	int 		endpos;
 
@@ -67,14 +69,14 @@ int initializeScaffoldInterface(char* url, scaffoldInterface** obj){
 	//assign
 	line = NULL;
 
+
 	//read in the first line of code
-	len = lineReader(&line, (*obj)->file);
+	lineReader(&line, (*obj)->file);
 
 
 	//initial conditions
 	startpos = 0;
 	endpos	= 0;
-
 
 	//get data from file
 	(*obj)->id			= nextString(&startpos, &endpos, line);
@@ -121,6 +123,9 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	//char*	averagePassrate;
 	char*	footer;
 
+
+	//assign
+	UNUSED(fin);
 
 	//malloc and build string
 	main 			= malloc(sizeof(char) * 20);
@@ -219,25 +224,10 @@ int intlen(int num){
 }
 
 //reading functions
-ssize_t lineReader(char** line, FILE *f){
+void lineReader(char** line, FILE *f){
 
-	//var
-	char* 		newLine;
-	size_t		size;
-	ssize_t		totalLength;
-
-
-	//assign
-	newLine = NULL;
-	size = 0;
-
-	//read line
-	totalLength = getline(&newLine, &size, f);
-
-
-	//return data
-	*line = newLine;
-	return totalLength;
+	//this function used to do more :(
+	*line = fgets(*line, READ_SIZE, f);
 }
 
 int	lineLocator(int* startpos, int* endpos, char* line){
