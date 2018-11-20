@@ -41,18 +41,26 @@ typedef struct ScaffoldInterface{
 	double 	averagePassrate;
 	
 	scaffoldTest* tests;
-	
+
 } scaffoldInterface;
-
-
-
 
 int initializeScaffoldInterface(char* url, scaffoldInterface** obj);
 
-int _initializeScaffoldInterface(scaffoldInterface** obj);
+void deleteScaffoldInterface(scaffoldInterface* obj);
 
-ssize_t lineReader(char* line, FILE *f);
+char* printScaffoldInterface(scaffoldInterface* obj);
 
-void deleteScaffoldInterace(scaffoldInterface* obj);
+//utility functions
+int intlen(int num);
+
+//reading functions
+ssize_t lineReader(char** line, FILE *f);
+
+int	lineLocator(int* startpos, int* endpos, char* line);
+
+int nextInt(int* startpos, int* endpos, char* line);
+
+char* nextString(int* startpos, int* endpos, char* line);
+
 
 #endif

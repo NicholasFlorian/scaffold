@@ -1,3 +1,3 @@
-<Scaffold Id><Message><Number of Tests>
+<Scaffold Id><Message><5>
 <Test Id><Message><Number of unit Tests>
 	<Unit Id><Messsage><data><data>
