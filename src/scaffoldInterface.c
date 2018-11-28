@@ -61,13 +61,13 @@ int initializeScaffoldInterface(char* url, scaffoldInterface** obj){
 
 	//save url
 	urllen 		= strlen(url);
-	(*obj)->url = malloc(sizeof(char) * urllen);
+	(*obj)->url = malloc(sizeof(char) * (urllen + 1));
 	strcpy((*obj)->url,url);
 
 
 
 	//assign
-	line = NULL;
+	line = malloc(sizeof(char) * READ_SIZE);
 
 
 	//read in the first line of code
@@ -227,7 +227,7 @@ int intlen(int num){
 void lineReader(char** line, FILE *f){
 
 	//this function used to do more :(
-	*line = fgets(*line, READ_SIZE, f);
+	*line = fgets(*line, READ_SIZE + 1, f);
 }
 
 int	lineLocator(int* startpos, int* endpos, char* line){
