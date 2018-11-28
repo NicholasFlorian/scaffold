@@ -156,7 +156,7 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	//calculate size.
 	len = 0;
 
-	len+=strlen(main);
+	len+=strlen(head);
 
 	len+=strlen(url);
 	len+=strlen(obj->url);
