@@ -35,7 +35,7 @@ int main(int argc, char **argv){
 int initializeScaffoldInterface(char* url, scaffoldInterface** obj){
 
 	//var
-	int urllen;
+	int 		urllen;
 	char* 		line;
 	int 		startpos;
 	int 		endpos;
@@ -114,7 +114,7 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	char* 	tempstr;
 	int		len;
 	int 	fin;
-	char*	main;
+	char*	head;
 	char* 	url;
 	char* 	id;
 	char* 	message;
@@ -128,8 +128,8 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	UNUSED(fin);
 
 	//malloc and build string
-	main 			= malloc(sizeof(char) * 20);
-	main			= "Scaffold Interface{";
+	head 			= malloc(sizeof(char) * 20);
+	head			= "Scaffold Interface{";
 
 	url 			= malloc(sizeof(char) * 6);
 	url 			= "url: ";
@@ -179,7 +179,7 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	fin = sprintf(
 			tempstr,
 			"%s%s%s%s%s%s%s%s%d%s",
-			main,
+			head,
 			url,
 			obj->url,
 			id,
@@ -190,7 +190,7 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 			obj->totalTests,
 			footer);
 
-	//free(main);
+	//free(head);
 	//free(url);
 	//free(id);
 	//free(message);
