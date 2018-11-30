@@ -189,12 +189,12 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 			obj->totalTests,
 			footer);
 
-	//free(head);
-	//free(url);
-	//free(id);
-	//free(message);
-	//free(totalTests);
-	//free(footer);
+	free(head);
+	free(url);
+	free(id);
+	free(message);
+	free(totalTests);
+	free(footer);
 
 	return tempstr;
 }
