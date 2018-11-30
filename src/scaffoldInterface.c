@@ -5,9 +5,11 @@
 #include <string.h>
 #include "scaffoldInterface.h"
 
+//constants
 #define READ_SIZE 200
 #define UNUSED(x) (void)(x)
 
+//temp main function
 int main(int argc, char **argv){
 
 	//var
@@ -32,6 +34,7 @@ int main(int argc, char **argv){
 
 }
 
+//scaffoldInterface
 int initializeScaffoldInterface(char* url, scaffoldInterface** obj){
 
 	//var
@@ -64,10 +67,6 @@ int initializeScaffoldInterface(char* url, scaffoldInterface** obj){
 	(*obj)->url = malloc(sizeof(char) * (urllen + 1));
 	strcpy((*obj)->url,url);
 
-
-
-	//assign
-	line = malloc(sizeof(char) * READ_SIZE);
 
 
 	//read in the first line of code
@@ -226,8 +225,20 @@ int intlen(int num){
 //reading functions
 void lineReader(char** line, FILE *f){
 
-	//this function used to do more :(
-	*line = fgets(*line, READ_SIZE + 1, f);
+	//these extra steps prevent segfaults in linux
+
+	//var
+	char	tempstr[READ_SIZE];
+
+
+	//assign
+	*line	= malloc(sizeof(char) * READ_SIZE);
+
+	//get data
+	fgets(tempstr, sizeof(tempstr), f);
+
+	//copy assigne over temp string
+	strcpy(*line, tempstr);
 }
 
 int	lineLocator(int* startpos, int* endpos, char* line){
