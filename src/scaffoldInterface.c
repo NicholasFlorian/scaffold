@@ -127,19 +127,19 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	UNUSED(fin);
 
 	//malloc and build string
-	head 			= malloc(sizeof(char) * 20);
+	//head 			= malloc(sizeof(char) * 20);
 	head			= "Scaffold Interface{";
 
-	url 			= malloc(sizeof(char) * 6);
+	//url 			= malloc(sizeof(char) * 6);
 	url 			= "url: ";
 
-	id				= malloc(sizeof(char) * 7);
+	//id				= malloc(sizeof(char) * 7);
 	id				= "; id: ";
 
-	message			= malloc(sizeof(char) * 12);
+	//message			= malloc(sizeof(char) * 12);
 	message			= "; message: ";
 
-	totalTests		= malloc(sizeof(char) * 15);
+	//totalTests		= malloc(sizeof(char) * 15);
 	totalTests 		= "; totalTests: ";
 
 	//totalPassrate 	= malloc(sizeof(char) * 18);
@@ -148,7 +148,7 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	//averagePassrate = malloc(sizeof(char) * 20);
 	//averagePassrate = "; averagePassrate: ";
 
-	footer			= malloc(sizeof(char) * 3);
+	//footer			= malloc(sizeof(char) * 3);
 	footer			= ";}";
 
 
@@ -175,7 +175,7 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	//assemble final string
 	tempstr = malloc(sizeof(char) * (len));
 
-	fin = sprintf(
+	/*fin = sprintf(
 			tempstr,
 			"%s%s%s%s%s%s%s%s%d%s",
 			head,
@@ -187,14 +187,16 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 			obj->message,
 			totalTests,
 			obj->totalTests,
-			footer);
+			footer);*/
 
+	// free and return
 	free(head);
 	free(url);
 	free(id);
 	free(message);
 	free(totalTests);
 	free(footer);
+
 
 	return tempstr;
 }
