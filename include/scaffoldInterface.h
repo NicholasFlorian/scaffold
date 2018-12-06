@@ -45,6 +45,8 @@ typedef struct ScaffoldInterface{
 
 } scaffoldInterface;
 
+
+//ScaffoldInterface
 int initializeScaffoldInterface(char* url, scaffoldInterface** obj);
 
 void deleteScaffoldInterface(scaffoldInterface* obj);
@@ -53,6 +55,8 @@ char* printScaffoldInterface(scaffoldInterface* obj);
 
 //utility functions
 int intlen(int num);
+
+int doublelen(double num, char** formatted);
 
 //reading functions
 void lineReader(char** line, FILE *f);

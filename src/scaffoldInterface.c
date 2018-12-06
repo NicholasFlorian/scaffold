@@ -118,8 +118,10 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	char* 	id;
 	char* 	message;
 	char*	totalTests;
-	//char*	totalPassrate;
-	//char*	averagePassrate;
+	char*	totalPassrate;
+	char*	totalPassrateVal;
+	char*	averagePassrate;
+	char*	averagePassrateVal;
 	char*	footer;
 
 
@@ -127,28 +129,13 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	UNUSED(fin);
 
 	//malloc and build string
-	//head 			= malloc(sizeof(char) * 20);
 	head			= "Scaffold Interface{";
-
-	//url 			= malloc(sizeof(char) * 6);
 	url 			= "url: ";
-
-	//id				= malloc(sizeof(char) * 7);
 	id				= "; id: ";
-
-	//message			= malloc(sizeof(char) * 12);
 	message			= "; message: ";
-
-	//totalTests		= malloc(sizeof(char) * 15);
 	totalTests 		= "; totalTests: ";
-
-	//totalPassrate 	= malloc(sizeof(char) * 18);
-	//totalPassrate	= "; totalPassrate: ";
-
-	//averagePassrate = malloc(sizeof(char) * 20);
-	//averagePassrate = "; averagePassrate: ";
-
-	//footer			= malloc(sizeof(char) * 3);
+	totalPassrate	= "; totalPassrate: ";
+	averagePassrate = "; averagePassrate: ";
 	footer			= ";}";
 
 
@@ -169,15 +156,21 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	len+=strlen(totalTests);
 	len+=intlen(obj->totalTests);
 
+	len+=strlen(totalPassrate);
+	len+=doublelen(obj->totalPassrate, &totalPassrateVal);
+
+	len+=strlen(averagePassrate);
+	len+=doublelen(obj->averagePassrate, &averagePassrateVal);
+
 	len+=strlen(footer);
 	len++;
 
 	//assemble final string
 	tempstr = malloc(sizeof(char) * (len));
 
-	/*fin = sprintf(
+	fin = sprintf(
 			tempstr,
-			"%s%s%s%s%s%s%s%s%d%s",
+			"%s%s%s%s%s%s%s%s%d%s%s%s%s%s",
 			head,
 			url,
 			obj->url,
@@ -187,7 +180,12 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 			obj->message,
 			totalTests,
 			obj->totalTests,
-			footer);*/
+			totalPassrate,
+			totalPassrateVal,
+			averagePassrate,
+			averagePassrateVal,
+			footer);
+
 
 	// free and return
 	free(head);
@@ -195,6 +193,10 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	free(id);
 	free(message);
 	free(totalTests);
+	free(totalPassrate);
+	free(totalPassrateVal);
+	free(averagePassrate);
+	free(averagePassrateVal);
 	free(footer);
 
 
@@ -222,6 +224,36 @@ int intlen(int num){
 	}
 
 	return count;
+}
+
+int doublelen(double num, char** formatted){
+
+	//var
+	char 	*display;
+	int		len;
+	int		fin;
+
+
+	//assign
+	UNUSED(fin);
+
+
+	//calculate whole value
+	len = intlen((int) num);
+
+	//add 3 for decimal value
+	len+=3;
+
+
+	//create string
+	display = malloc(sizeof(char) * (len + 1));
+	fin 	= sprintf(display, "%.2f", num);
+
+
+	//return
+	*formatted = display;
+	return len;
+
 }
 
 //reading functions
