@@ -28,13 +28,13 @@ int main(int argc, char **argv){
 
 	//test print
 	tempsi = printScaffoldInterface(si);
-	printf("%s\n", tempsi);
+	printf("Scaffold: %s\n", tempsi);
 	free(tempsi);
 
 
 	//create test interface
 	checkst = initializeScaffoldTest(si, &st);
-	printf("%d\n", checkst);
+	printf("Test: %d\n", checkst);
 
 	//test print
 	tempst = printScaffoldTest(st);
@@ -44,6 +44,7 @@ int main(int argc, char **argv){
 
 	//free scaffold interface
 	deleteScaffoldInterface(si);
+	deleteScaffoldTest(st);
 
 	return 0;
 
@@ -283,10 +284,10 @@ char* printScaffoldTest(scaffoldTest* obj){
 	UNUSED(fin);
 
 	//malloc and build string, this memory is handled by compiler
-	head			= "Scaffold Interface{";
+	head			= "Scaffold Test{";
 	footer			= "}";
 
-	id				= "; id: ";
+	id				= "id: ";
 	message			= "; message: ";
 	totalUnits 		= "; totalUnits: ";
 	pass			= "; pass: ";
@@ -294,7 +295,7 @@ char* printScaffoldTest(scaffoldTest* obj){
 	passrate		= "; passrate: ";
 
 
-	//calculate size.
+	//calculate size
 	len = 0;
 
 	len+=strlen(head);
