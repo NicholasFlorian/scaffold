@@ -11,7 +11,7 @@ typedef struct ScaffoldUnit{
 	
 	char*	id;
 	char*	message;
-	void*	data;
+
 	bool	pass;
 	
 } scaffoldUnit;
@@ -20,11 +20,13 @@ typedef struct ScaffoldTest{
 	
 	char*	id;
 	char*	message;
+	int 	totalUnits;
+
 	int		pass;
 	int		fail;
 	double 	passrate;
 	
-	int 	testNum;
+
 	scaffoldUnit* units;
 	
 } scaffoldTest;
@@ -52,6 +54,13 @@ int initializeScaffoldInterface(char* url, scaffoldInterface** obj);
 void deleteScaffoldInterface(scaffoldInterface* obj);
 
 char* printScaffoldInterface(scaffoldInterface* obj);
+
+//scaffoldTest
+int initializeScaffoldTest(scaffoldInterface* si, scaffoldTest** obj);
+
+void deleteScaffoldTest(scaffoldTest* obj);
+
+char* printScaffoldTest(scaffoldTest* obj);
 
 //utility functions
 int intlen(int num);

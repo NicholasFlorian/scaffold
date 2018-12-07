@@ -14,18 +14,33 @@ int main(int argc, char **argv){
 
 	//var
 	scaffoldInterface* si;
-	int sicheck;
-	char* temp;
+	int checksi;
+	char* tempsi;
+
+	scaffoldTest* st;
+	int checkst;
+	char* tempst;
 
 
 	//create scaffold interface
-	sicheck = initializeScaffoldInterface(argv[1], &si);
-	printf("%d\n", sicheck);
+	checksi = initializeScaffoldInterface(argv[1], &si);
+	printf("%d\n", checksi);
 
 	//test print
-	temp = printScaffoldInterface(si);
-	printf("%s\n", temp);
-	free(temp);
+	tempsi = printScaffoldInterface(si);
+	printf("%s\n", tempsi);
+	free(tempsi);
+
+
+	//create test interface
+	checkst = initializeScaffoldTest(si, &st);
+	printf("%d\n", checkst);
+
+	//test print
+	tempst = printScaffoldTest(st);
+	printf("%s\n", tempst);
+	free(tempst);
+
 
 	//free scaffold interface
 	deleteScaffoldInterface(si);
@@ -114,6 +129,8 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	int		len;
 	int 	fin;
 	char*	head;
+	char*	footer;
+
 	char* 	url;
 	char* 	id;
 	char* 	message;
@@ -122,27 +139,29 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	char*	totalPassrateVal;
 	char*	averagePassrate;
 	char*	averagePassrateVal;
-	char*	footer;
+
 
 
 	//assign
 	UNUSED(fin);
 
-	//malloc and build string
+	//malloc and build string, this memory is handled by compiler
 	head			= "Scaffold Interface{";
+	footer			= "}";
+
 	url 			= "url: ";
 	id				= "; id: ";
 	message			= "; message: ";
 	totalTests 		= "; totalTests: ";
 	totalPassrate	= "; totalPassrate: ";
 	averagePassrate = "; averagePassrate: ";
-	footer			= ";}";
 
 
 	//calculate size.
 	len = 0;
 
 	len+=strlen(head);
+	len+=strlen(footer);
 
 	len+=strlen(url);
 	len+=strlen(obj->url);
@@ -162,12 +181,11 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 	len+=strlen(averagePassrate);
 	len+=doublelen(obj->averagePassrate, &averagePassrateVal);
 
-	len+=strlen(footer);
 	len++;
+
 
 	//assemble final string
 	tempstr = malloc(sizeof(char) * (len));
-
 	fin = sprintf(
 			tempstr,
 			"%s%s%s%s%s%s%s%s%d%s%s%s%s%s",
@@ -178,27 +196,154 @@ char* printScaffoldInterface(scaffoldInterface* obj){
 			obj->id,
 			message,
 			obj->message,
-			totalTests,
+			totalTests,			//int
 			obj->totalTests,
 			totalPassrate,
 			totalPassrateVal,
 			averagePassrate,
-			averagePassrateVal,
+			averagePassrateVal,	//double
 			footer);
 
 
 	// free and return
-	free(head);
-	free(url);
-	free(id);
-	free(message);
-	free(totalTests);
-	free(totalPassrate);
 	free(totalPassrateVal);
-	free(averagePassrate);
 	free(averagePassrateVal);
-	free(footer);
 
+	return tempstr;
+}
+
+//scaffoldTest
+int initializeScaffoldTest(scaffoldInterface* si, scaffoldTest** obj){
+
+	//var
+	char* 	line;
+	int 	startpos;
+	int 	endpos;
+
+
+	//allocate memory
+	*obj = malloc(sizeof(scaffoldTest));
+
+
+	//read in the first line of code
+	lineReader(&line, si->file);
+
+
+	//initial conditions
+	startpos = 0;
+	endpos	= 0;
+
+	//get data from file
+	(*obj)->id			= nextString(&startpos, &endpos, line);
+	(*obj)->message 	= nextString(&startpos, &endpos, line);
+	(*obj)->totalUnits	= nextInt(&startpos, &endpos, line);
+
+	//set 0
+	(*obj)->pass		= 0;
+	(*obj)->fail		= 0;
+	(*obj)->passrate	= 0;
+
+
+	//manage memory
+	free(line);
+
+	return 1;
+
+}
+
+void deleteScaffoldTest(scaffoldTest* obj){
+
+	//free strings
+	free(obj->id);
+	free(obj->message);
+
+	free(obj);
+
+}
+
+char* printScaffoldTest(scaffoldTest* obj){
+
+	//var
+	char* 	tempstr;
+	int		len;
+	int 	fin;
+	char*	head;
+	char*	footer;
+
+	char*	id;
+	char*	message;
+	char*	totalUnits;
+	char*	pass;
+	char*	fail;
+	char*	passrate;
+	char*	passrateVal;
+
+
+	//assign
+	UNUSED(fin);
+
+	//malloc and build string, this memory is handled by compiler
+	head			= "Scaffold Interface{";
+	footer			= "}";
+
+	id				= "; id: ";
+	message			= "; message: ";
+	totalUnits 		= "; totalUnits: ";
+	pass			= "; pass: ";
+	fail			= "; fail: ";
+	passrate		= "; passrate: ";
+
+
+	//calculate size.
+	len = 0;
+
+	len+=strlen(head);
+	len+=strlen(footer);
+
+	len+=strlen(id);
+	len+=strlen(obj->id);
+
+	len+=strlen(message);
+	len+=strlen(obj->message);
+
+	len+=strlen(totalUnits);
+	len+=intlen(obj->totalUnits);
+
+	len+=strlen(pass);
+	len+=intlen(obj->pass);
+
+	len+=strlen(fail);
+	len+=intlen(obj->fail);
+
+	len+=strlen(passrate);
+	len+=doublelen(obj->passrate, &passrateVal);
+
+	len++;
+
+
+	//assemble final string
+	tempstr = malloc(sizeof(char) * (len));
+	fin = sprintf(
+			tempstr,
+			"%s%s%s%s%s%s%d%s%d%s%d%s%s%s",
+			head,
+			id,
+			obj->id,
+			message,
+			obj->message,
+			totalUnits,
+			obj->totalUnits,	//int
+			pass,
+			obj->pass,			//int
+			fail,
+			obj->fail,			//int
+			passrate,
+			passrateVal,		//double
+			footer);
+
+
+	// free and return
+	free(passrateVal);
 
 	return tempstr;
 }
@@ -242,7 +387,7 @@ int doublelen(double num, char** formatted){
 	len = intlen((int) num);
 
 	//add 3 for decimal value
-	len+=3;
+	len+=4;
 
 
 	//create string
@@ -349,8 +494,3 @@ char* nextString(int* startpos, int* endpos, char* line){
 	return tempstr;
 
 }
-
-
-
-
-
