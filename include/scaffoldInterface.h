@@ -12,7 +12,7 @@ typedef struct ScaffoldUnit{
 	char*	id;
 	char*	message;
 
-	bool	pass;
+	int		pass;
 	
 } scaffoldUnit;
 
@@ -48,12 +48,17 @@ typedef struct ScaffoldInterface{
 } scaffoldInterface;
 
 
-//ScaffoldInterface
+//scaffoldInterface
 int initializeScaffoldInterface(char* url, scaffoldInterface** obj);
 
 void deleteScaffoldInterface(scaffoldInterface* obj);
 
 char* printScaffoldInterface(scaffoldInterface* obj);
+
+void _printStartOfInterface(scaffoldInterface* obj);
+
+void _printEndOfInterface(scaffoldInterface* obj);
+
 
 //scaffoldTest
 int initializeScaffoldTest(scaffoldInterface* si, scaffoldTest** obj);
@@ -62,10 +67,28 @@ void deleteScaffoldTest(scaffoldTest* obj);
 
 char* printScaffoldTest(scaffoldTest* obj);
 
+void _printStartOfTest(scaffoldTest* obj);
+
+void _printEndOfTest(scaffoldInterface* si, scaffoldTest* obj);
+
+
+//scaffoldUnit
+int initializeScaffoldUnit(scaffoldInterface* si, scaffoldUnit** obj);
+
+void deleteScaffoldUnit(scaffoldUnit* obj);
+
+char* printScaffoldUnit(scaffoldUnit* obj);
+
+void _printStartOfUnit(scaffoldUnit* obj);
+
+void _printEndOfUnit(scaffoldTest* st, scaffoldUnit* obj, int pass);
+
+
 //utility functions
 int intlen(int num);
 
 int doublelen(double num, char** formatted);
+
 
 //reading functions
 void lineReader(char** line, FILE *f);

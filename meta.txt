@@ -1,3 +1,3 @@
-<Scaffold Id><Message><5>
-<Test Id><Message><4>
-	<Unit Id><Messsage><data><data>
+<Initialize Interface><This is meant to test the scaffold itself><1>
+<Initialize Test><Test creatation of 'Test'><1>
+	<Initialize Unit><Test creatation of 'Unit'><data><data><asd2>
