@@ -63,13 +63,14 @@ int main(int argc, char **argv){
 	//test print
 	tempsu = printScaffoldUnit(su);
 	printf("%s\n", tempsu);
+	free(tempsu);
 
 
 	_printStartOfInterface(si);
 	_printStartOfTest(st);
 	_printStartOfUnit(su);
 
-	_printEndOfUnit(st,su,1);
+	_printEndOfUnit(st,su,0);
 	_printEndOfTest(si, st);
 	_printEndOfInterface(si);
 
@@ -262,9 +263,7 @@ void _printStartOfInterface(scaffoldInterface* obj){
 
 
 	//print
-	printf("%s-----------------------------------------------------------------------------%s\n",
-			ANSI_COLOR_CYAN,
-			ANSI_COLOR_RESET);
+	printf("-----------------------------------------------------------------------------\n");
 
 	printf("\n");
 
@@ -289,9 +288,7 @@ void _printStartOfInterface(scaffoldInterface* obj){
 
 	printf("\n");
 
-	printf("%s-----------------------------------------------------------------------------%s\n",
-			ANSI_COLOR_CYAN,
-			ANSI_COLOR_RESET);
+	printf("-----------------------------------------------------------------------------\n");
 
 	printf("\n");
 }
@@ -335,9 +332,7 @@ void _printEndOfInterface(scaffoldInterface* obj){
 
 	printf("\n");
 
-	printf("%s-----------------------------------------------------------------------------%s\n",
-			ANSI_COLOR_CYAN,
-			ANSI_COLOR_RESET);
+	printf("-----------------------------------------------------------------------------\n");
 
 	printf("\n");
 }
@@ -569,9 +564,9 @@ void _printEndOfTest(scaffoldInterface* si, scaffoldTest* obj){
 
 	printf("\n");
 
-	printf("%s-----------------------------------------------------------------------------%s\n",
-			ANSI_COLOR_CYAN,
-			ANSI_COLOR_RESET);
+	printf("-----------------------------------------------------------------------------\n");
+
+	printf("\n");
 
 }
 
@@ -696,7 +691,7 @@ void _printStartOfUnit(scaffoldUnit* obj){
 			ANSI_COLOR_RESET,
 			obj->id);
 
-	printf("\t\t\t   %s\n", obj->message);
+	printf("\t\t%s\n", obj->message);
 
 	printf("\n");
 }
